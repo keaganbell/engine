@@ -29,6 +29,7 @@
 *.dylib
 
 # Executables
+testbed
 *.exe
 *.out
 *.app
