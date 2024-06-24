@@ -6,9 +6,13 @@
 
 #include <raylib.h>
 
+// NOTE: trying to keep memory local but can remove this
+// and make the scene table a dynamic array instead
+#define MAX_SCENES 5
+
 typedef struct app_state {
-    sceneid_t sceneid;
-    scene_t *scenes; // darray
+    u64 current_sceneid;
+    scene_t scenes[MAX_SCENES]; // darray
 } app_state_t;
 
 typedef struct application {
@@ -16,14 +20,8 @@ typedef struct application {
     u32 default_width;
     u32 default_height;
     dynamic_library_t applib;
-    app_state_t *state;
 
-    b8 (*init)(struct application *app);
-    b8 (*update)(struct application *app);
-    b8 (*render)(struct application *app);
-    b8 (*shutdown)(struct application *app);
+    b8 (*init)();
+    b8 (*update)();
+    b8 (*shutdown)();
 } application_t;
-
-static inline scene_t *current_scene(app_state_t *app_state) {
-    return get_scene(app_state, app_state->sceneid);
-}

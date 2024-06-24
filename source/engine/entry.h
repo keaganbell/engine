@@ -13,7 +13,7 @@ int main(void) {
         FATAL("failed to initialize application");
         return 1;
     }
-    if (!app.init(&app)) {
+    if (!app.init()) {
         FATAL("application failed to initialize");
         return 1;
     }
@@ -35,9 +35,6 @@ int main(void) {
         if (!app.update(&app)) {
             WARN("application is shutting down");
             break;
-        }
-        if (!app.render(&app)) {
-            ERROR("application had trouble rendering");
         }
     }
     if (!app.shutdown(&app)) {

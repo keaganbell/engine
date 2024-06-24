@@ -4,14 +4,6 @@
 
 typedef struct app_state app_state_t;
 
-typedef enum sceneid {
-    INTRO,
-    MENU,
-    PLAY,
-
-    MAX_SCENES
-} sceneid_t;
-
 typedef struct header {
     u32 length;
     u32 stride;
@@ -25,17 +17,9 @@ typedef struct data_frame {
 } data_frame_t;
 
 typedef struct scene {
-    sceneid_t sceneid;
-
+    u64 sceneid;
     void *scene_data;
-
-    b8 (*init)(app_state_t *app_state);
-    b8 (*update)(app_state_t *app_state);
-    b8 (*render)(app_state_t *app_state);
-    b8 (*shutdown)(app_state_t *app_state);
 } scene_t;
 
 void create_scene(scene_t *scene);
 //void *push_struct(ELMT_ID id, const void *strct, u32 stride);
-scene_t *get_scene(app_state_t *app_state, sceneid_t id);
-void scene_transition(app_state_t *app_state, sceneid_t scene_from, sceneid_t scene_to);

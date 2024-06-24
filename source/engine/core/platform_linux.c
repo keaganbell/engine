@@ -37,7 +37,6 @@ b8 platform_load_library(application_t *app) {
     }
     app->init = dlsym(app->applib.lib_ptr, "game_init");
     app->update = dlsym(app->applib.lib_ptr, "game_update");
-    app->render = dlsym(app->applib.lib_ptr, "game_render");
     app->shutdown = dlsym(app->applib.lib_ptr, "game_shutdown");
     if (!app->init) {
         FATAL("couldn't find symbol init");
@@ -45,10 +44,6 @@ b8 platform_load_library(application_t *app) {
     }
     if (!app->update) {
         FATAL("couldn't find symbol update");
-        return false;
-    }
-    if (!app->render) {
-        FATAL("couldn't find symbol render");
         return false;
     }
     if (!app->shutdown) {
@@ -72,7 +67,6 @@ b8 platform_hot_reload(application_t *app) {
     app->applib.lib_ptr = NULL;
     app->init = NULL;
     app->update = NULL;
-    app->render = NULL;
     app->shutdown = NULL;
     platform_load_library(app);
     return true;

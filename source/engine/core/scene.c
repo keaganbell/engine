@@ -38,13 +38,3 @@ void create_scene(scene_t *scene_out) {
 
     scene_out->scene_data = scene_data;
 }
-
-scene_t *get_scene(app_state_t *app_state, sceneid_t id) {
-    return (scene_t *)darray_get(app_state->scenes, id);
-}
-
-void scene_transition(app_state_t *app_state, sceneid_t scene_from, sceneid_t scene_to) {
-    get_scene(app_state, scene_from)->shutdown(app_state);
-    app_state->sceneid = scene_to;
-    get_scene(app_state, scene_to)->init(app_state);
-}
