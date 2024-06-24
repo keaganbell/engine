@@ -17,7 +17,7 @@ int main(void) {
         FATAL("application failed to initialize");
         return 1;
     }
-    InitWindow(app.window.min_size.x, app.window.min_size.y, app.name);
+    InitWindow(app.default_width, app.default_height, app.name);
     SetTargetFPS(60);
     while (!WindowShouldClose()) {
 #ifdef HOTRELOAD

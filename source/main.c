@@ -9,13 +9,10 @@ static app_state_t *state;
 b8 init_app(application_t *app_out) {
     ////////////////////////////////////////////////////////////////////////
     // create the application window
-    app_out->name = "Ark of the Covenant";
-    app_out->window = (window_t){
-        false,
-        {800, 600},
-        FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_ALWAYS_RUN
-    };
-    SetConfigFlags(app_out->window.flags);
+    app_out->name = "testbed";
+    app_out->default_width = 800;
+    app_out->default_height = 600;
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_ALWAYS_RUN);
     ////////////////////////////////////////////////////////////////////////
     // allocate the state
     state = malloc(sizeof(app_state_t));

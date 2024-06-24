@@ -1,5 +1,5 @@
 PROJ_ROOT:=$(shell pwd)
-PROJ_NAME:=appexe
+PROJ_NAME:=testbed
 
 LIBS:=-lraylib -lm
 INCS:=-I$(PROJ_ROOT)/source -I$(PROJ_ROOT)/source/engine
@@ -48,7 +48,7 @@ endif
 
 
 .PHONY: all
-all: clean $(ENGINETARGET) $(TARGET) $(GAMEDLTARGET)
+all: clean dirs $(ENGINETARGET) $(TARGET) $(GAMEDLTARGET)
 
 .PHONY: game
 game: $(GAMEDLTARGET)
@@ -57,7 +57,7 @@ $(GAMEDLTARGET): $(GAMEOBJS) $(ENGINETARGET) $(GAMEINL)
 	@echo "making $@"
 	@$(CC) $(CFLAGS) $(INCS) -shared -o $@ $< $(DEFINES) $(LIBS) -ldl
 
-$(OBJDIR)/%.o: $(GAMESRCDIR)/%.c | build-dirs
+$(OBJDIR)/%.o: $(GAMESRCDIR)/%.c
 	@echo "making $@"
 	@$(CC) $(CFLAGS) $(INCS) -o $@ -c $< $(DEFINES) $(LIBS)
 
@@ -65,7 +65,7 @@ $(ENGINETARGET): $(ENGINEOBJS)
 	@echo "making $@"
 	@$(CC) $(CFLAGS) $(INCS) -shared -o $@ $^ $(DEFINES) $(LIBS)
 
-$(OBJDIR)/%.o: $(ENGINESRCDIR)/%.c | build-dirs
+$(OBJDIR)/%.o: $(ENGINESRCDIR)/%.c
 	@echo "making $@"
 	@$(CC) $(CFLAGS) $(INCS) -o $@ -c $< $(DEFINES) $(LIBS)
 
@@ -73,14 +73,14 @@ $(TARGET): $(OBJS) $(ENGINETARGET)
 	@echo "making $@"
 	@$(CC) $(CFLAGS) $(INCS) -o $@ $^ $(DEFINES) $(LIBS)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c | build-dirs
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo "making $@"
 	@$(CC) $(CFLAGS) $(INCS) -o $@ -c $< $(DEFINES) $(LIBS)
 
 .PHONY: clean
 clean:
-	rm -f $(OBJDIR)/*.o $(TARGET) $(GAMEDLTARGET) $(ENGINETARGET)
+	@rm -f $(OBJDIR)/*.o $(TARGET) $(GAMEDLTARGET) $(ENGINETARGET)
 
-.PHONY: build-dirs
-build-dirs:
+.PHONY: dirs
+dirs:
 	@mkdir -p $(OBJDIR)

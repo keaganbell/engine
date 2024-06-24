@@ -36,7 +36,6 @@ b8 on_reload(app_state_t *game_state) {
 }
 
 b8 game_init(application_t *game) {
-    create_darray(game->state->rects);
     hasnt_reloaded = true;
     on_reload(game->state);
     intro_init(game->state);

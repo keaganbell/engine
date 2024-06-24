@@ -1,33 +1,21 @@
 #pragma once
 #include "defines.h"
 #include "core/platform.h"
-#include "core/coroutine.h"
 #include "core/scene.h"
 #include "core/ui.h"
 
 #include <raylib.h>
 
-typedef struct window {
-    b8 fullscreen;
-    Vector2 min_size;
-    u32 flags;
-} window_t;
-
 typedef struct app_state {
-    // make these dynamic later
-    coroutine_t coroutines[MAX_COROUTINES];
-    scene_t *scenes; // darray
     sceneid_t sceneid;
-
-    // test darray
-    Rectangle *rects;
+    scene_t *scenes; // darray
 } app_state_t;
 
 typedef struct application {
-    char *name;
-    window_t window;
+    const char *name;
+    u32 default_width;
+    u32 default_height;
     dynamic_library_t applib;
-
     app_state_t *state;
 
     b8 (*init)(struct application *app);
